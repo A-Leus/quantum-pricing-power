@@ -19,7 +19,8 @@ class EuropeanCallOption:
             S = float(spot_price) 
             vol = float(volatility) 
             r = float(int_rate) 
-            T = int(days) / 365 
+            T = int(days) / 365
+            strike_price = float(strike_price) 
         except ValueError:
            print("Some parameters wrong !!! ")
 
@@ -40,8 +41,10 @@ class EuropeanCallOption:
         except ValueError:
             print("Some parameters wrong !!! ")
 
+        
         # The approximation scaling for the payoff function
-        c_approx_payoff = 0.25
+        c_approx_payoff = 0.25 #abs(S-self.strike_price)
+        print(c_approx_payoff)
 
         breakpoints = [self.uncertainty_model.low, self.strike_price]
 
@@ -129,11 +132,18 @@ class EuropeanCallOption:
 
             european_delta_objective
         )
+
+
+
+
+
+
+
         
     def plot_probability_distribution(self):
         x = self.uncertainty_model.values
         y = self.uncertainty_model.probabilities
-        plt.bar(x, y, width=0.2)
+        plt.bar(x, y, width=0.3)
         plt.xticks(x, size=15, rotation=90)
         plt.yticks(size=15)
         plt.grid()
@@ -145,8 +155,14 @@ class EuropeanCallOption:
         mng.resize(*mng.window.maxsize())
         plt.show()
         
+
+
+
+
+
     def plot_payoff_function(self):
         self.x = self.uncertainty_model.values
+        print(self.strike_price)
         if self.value == str("call"):
             self.y = np.maximum(0, self.x - self.strike_price)
         else: self.y = np.maximum(0, self.strike_price - self.x)
@@ -169,6 +185,14 @@ class EuropeanCallOption:
         mng.resize(*mng.window.maxsize())
 
         plt.show()
+
+
+
+
+
+
+
+
         
     def print_exact_values(self):
         self.exact_value = np.dot(self.uncertainty_model.probabilities, self.y)
@@ -176,6 +200,14 @@ class EuropeanCallOption:
             self.exact_delta = sum(self.uncertainty_model.probabilities[self.x >= self.strike_price])
         else: self.exact_delta = -sum(self.uncertainty_model.probabilities[self.x <= self.strike_price])
         
+
+
+
+
+
+
+
+
         
     def evaluate_expected_payoff(self):
         # Set number of evaluation qubits (=log(samples))
@@ -191,6 +223,15 @@ class EuropeanCallOption:
         print('Estimated value:\t%.4f' % self.result['estimation'])
         print('Probability:    \t%.4f' % self.result['max_probability'])
         print('---------------------------\n')
+
+
+
+
+
+
+
+
+
         
     def plot_estimated_data_values(self):
 
@@ -233,6 +274,11 @@ class EuropeanCallOption:
 
         plt.show()
 
+
+
+
+
+
     def evaluate_delta(self):
         # Set number of evaluation qubits (=log(samples))
         m = 6
@@ -252,6 +298,12 @@ class EuropeanCallOption:
         print('Probability:   \t%.4f' % self.result_delta['max_probability'])
         
         print('---------------------------\n')
+
+
+
+
+
+
         
     def plot_estimated_delta_values(self):
         if self.value == str("call"):

@@ -1,36 +1,35 @@
-import argparse
-import sys
+import re
 from options import EuropeanCallOption
 
-parser = argparse.ArgumentParser(prog='Program')
 
 def main():
-    args = parser.parse_args()
     print("Welcome to Quantum Pricing Power!\n")
+    x = re.compile('\d+(\.\d+)?')
     val = input("Enter your option (Call /Put):").lower()
     while (val  != str("call") and val != str("put")):
-        val = input("Oops! The option was wrong. Try again...\nEnter your option (call / put): ").lower() 
+        val = input("Oops! The option type was wrong. Try again...\nEnter your option (call / put): ").lower() 
     
     print('Option selected:', val, '\n')
     
-    spot_price = input("Enter spot price:")
-    while ( isinstance(spot_price, int)):
-        spot_price = input("Oops! The spot price was wrong. Try again...\nEnter spot price: ")
+    spot_price = input('Enter the spot price:')
+    while  x.match(spot_price)==None:
+        print('Oops! The spot price must be a positive number! Try again...')
+        spot_price = input()
     
-    volatility = input("Enter volatility:")
-    while ( isinstance(volatility, float)):
+    volatility = input("Enter the implied volatility:")
+    while x.match(volatility)==None:
         volatility = input("Oops! The volatility was wrong. Try again...\nEnter volatility: ")
     
     int_rate = input("Enter interest rate:")
-    while ( isinstance(int_rate, float)):
+    while x.match(int_rate)==None:
         int_rate = input("Oops! The interest rate was wrong. Try again...\nEnter interest rate: ")
     
     days = input("Enter days to maturity:")
-    while ( isinstance(days, int)):
+    while x.match(days)==None:
         days = input("Oops! Days to maturity was wrong. Try again...\nEnter days to maturity: ")
         
     strike_price = input("Enter strike price:")
-    while ( isinstance(strike_price, float)):
+    while x.match(strike_price)==None:
         strike_price = input("Oops! The strike price was wrong. Try again...\nEnter strike price: ")
         
     print('Initialize algorithm...\n')
