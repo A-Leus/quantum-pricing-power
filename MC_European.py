@@ -30,7 +30,7 @@ days = input("Enter days to maturity:")
 while x.match(days)==None:
     days = input("Entered value is wrong.Please try again...\nEnter days to maturity: ")
 days=float(days)
-days=days/365
+days=days/250
         
 strike_price = input("Enter strike price:")
 while x.match(strike_price)==None:
