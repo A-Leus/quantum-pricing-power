@@ -241,18 +241,22 @@ class EuropeanCallOption:
 
         plt.yticks([0, 0.25, 0.5, 0.75, 1], size=15)
 
-        plt.title('Payoff', size=15)
+        plt.title('Probability of measuring |1> in the last qubit', size=15)
 
         plt.ylabel('Probability', size=15)
 
         plt.ylim((0,1))
 
         plt.grid()
+         
         mng = plt.get_current_fig_manager()
 
         mng.resize(*mng.window.maxsize())
+         
         plt.show()
 
+      
+      
         plt.bar(self.result['mapped_values'], self.result['probabilities'], width=1/len(self.result['probabilities']))
 
         plt.plot([self.exact_value, self.exact_value], [0,1], 'r--', linewidth=2)
