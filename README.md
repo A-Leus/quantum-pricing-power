@@ -3,8 +3,8 @@
 ### Getting started:
 ```bash
 pip install qiskit matplotlib numpy
-git clone https://github.com/dmartmillan/quantum-pricing-power.git
-python3 main.py
+git clone https://github.com/A-Leus/quantum-pricing-power.git
+python main.py
 ```
 ### Inputs:
 * Option Type (Call or Put)
