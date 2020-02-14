@@ -80,18 +80,14 @@ class EuropeanCallOption:
 
             f_max_payoff,
 
-            c_approx_payoff
-
-        )
+            c_approx_payoff)
 
         # Circuit factory for payoff function
         self.european_payoff = UnivariateProblem(
 
             self.uncertainty_model,
 
-            european_objective
-
-        )
+            european_objective)
         
 
         slopes_delta = [0, 0]
@@ -124,20 +120,12 @@ class EuropeanCallOption:
 
             f_max_delta,
 
-            c_approx_delta
-        )
+            c_approx_delta)
 
         self.european_delta = UnivariateProblem(
             self. uncertainty_model,
 
-            european_delta_objective
-        )
-
-
-
-
-
-
+            european_delta_objective)
 
         
     def plot_probability_distribution(self):
@@ -281,9 +269,6 @@ class EuropeanCallOption:
 
 
 
-
-
-
     def evaluate_delta(self):
         # Set number of evaluation qubits (=log(samples))
         m = 6
@@ -303,9 +288,6 @@ class EuropeanCallOption:
         print('Probability:   \t%.4f' % self.result_delta['max_probability'])
         
         print('---------------------------\n')
-
-
-
 
 
 
@@ -331,5 +313,7 @@ class EuropeanCallOption:
         plt.grid()
 
         mng = plt.get_current_fig_manager()
+      
         mng.resize(*mng.window.maxsize())
+         
         plt.show()
