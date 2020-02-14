@@ -148,16 +148,11 @@ class EuropeanCallOption:
         plt.yticks(size=15)
         plt.grid()
         plt.title('Underlying', size=15)
-        plt.xlabel('Spot Price at Maturity $S_T$ (CHF)', size=15)
-        plt.ylabel('Probability ($\%$)', size=15)
+        plt.xlabel('Spot Price at Maturity', size=10)
+        plt.ylabel('Probability', size=10)
         mng = plt.get_current_fig_manager()
-
         mng.resize(*mng.window.maxsize())
         plt.show()
-        
-
-
-
 
 
     def plot_payoff_function(self):
@@ -166,32 +161,16 @@ class EuropeanCallOption:
         if self.value == str("call"):
             self.y = np.maximum(0, self.x - self.strike_price)
         else: self.y = np.maximum(0, self.strike_price - self.x)
-
         plt.plot(self.x, self.y, 'ro-')
-
         plt.grid()
-
         plt.title('Payoff Function', size=15)
-
-        plt.xlabel('Spot Price', size=15)
-
-        plt.ylabel('Payoff', size=15)
-
+        plt.xlabel('Spot Price', size=10)
+        plt.ylabel('Payoff', size=10)
         plt.xticks(self.x, size=15, rotation=90)
-
         plt.yticks(size=15)
         mng = plt.get_current_fig_manager()
-
         mng.resize(*mng.window.maxsize())
-
         plt.show()
-
-
-
-
-
-
-
 
         
     def print_exact_values(self):
@@ -199,15 +178,6 @@ class EuropeanCallOption:
         if self.value == str("call"):
             self.exact_delta = sum(self.uncertainty_model.probabilities[self.x >= self.strike_price])
         else: self.exact_delta = -sum(self.uncertainty_model.probabilities[self.x <= self.strike_price])
-        
-
-
-
-
-
-
-
-
         
     def evaluate_expected_payoff(self):
         # Set number of evaluation qubits (=log(samples))
@@ -223,23 +193,15 @@ class EuropeanCallOption:
         print('Estimated value:\t%.4f' % self.result['estimation'])
         print('Probability:    \t%.4f' % self.result['max_probability'])
         print('---------------------------\n')
-
-
-
-
-
-
-
-
-
+         
         
     def plot_estimated_data_values(self):
 
         plt.bar(self.result['values'], self.result['probabilities'], width=0.5/len(self.result['probabilities']))
 
-        plt.xticks([0, 0.25, 0.5, 0.75, 1], size=15)
+        plt.xticks([0, 0.25, 0.5, 0.75, 1], size=10)
 
-        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=15)
+        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=10)
 
         plt.title('Probability of measuring |1> in the last qubit', size=15)
 
@@ -257,13 +219,13 @@ class EuropeanCallOption:
 
       
       
-        plt.bar(self.result['mapped_values'], self.result['probabilities'], width=1/len(self.result['probabilities']))
+        plt.bar(self.result['mapped_values'], self.result['probabilities'], width=10/len(self.result['probabilities']))
 
         plt.plot([self.exact_value, self.exact_value], [0,1], 'r--', linewidth=2)
 
-        plt.xticks(size=15)
+        plt.xticks(size=10)
 
-        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=15)
+        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=10)
 
         plt.title('Estimated Option Price', size=15)
 
@@ -311,7 +273,7 @@ class EuropeanCallOption:
         
     def plot_estimated_delta_values(self):
         if self.value == str("call"):
-            plt.bar(self.result_delta['values'], self.result_delta['probabilities'], width=0.5/len(self.result_delta['probabilities']))
+            plt.bar(self.result_delta['values'], self.result_delta['probabilities'], width=1/len(self.result_delta['probabilities']))
         else: plt.bar(-np.array(self.result_delta['values']), self.result_delta['probabilities'], width=0.5/len(self.result_delta['probabilities']))
         
 
@@ -319,9 +281,9 @@ class EuropeanCallOption:
 
         plt.xticks(size=15)
 
-        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=15)
+        plt.yticks([0, 0.25, 0.5, 0.75, 1], size=10)
 
-        plt.title('Estimated Option Delta', size=15)
+        plt.title('Estimated Option Delta', size=10)
 
         plt.ylabel('Probability', size=15)
 
@@ -330,6 +292,5 @@ class EuropeanCallOption:
         plt.grid()
 
         mng = plt.get_current_fig_manager()
-
         mng.resize(*mng.window.maxsize())
         plt.show()
